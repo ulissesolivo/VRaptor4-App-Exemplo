@@ -33,14 +33,14 @@ public class Usuario implements Serializable {
   @GeneratedValue(generator = "generator_id", strategy = GenerationType.SEQUENCE)
   private Long id;
 
-  @Column(length = 255, nullable = false)
+  @Column(length = 255, nullable = false, unique = true)
   @Length(min = 1, max = 255, message = "O login deve conter no máximo 255 caracteres!")
   private String login;
 
   @Column(length = 130)
   @Length(min = 0, max = 130, message = "A senha deve conter no máximo 130 caracteres!")
   private String senha;
-  
+
   @Transient
   private String senhaConfirmacao;
 

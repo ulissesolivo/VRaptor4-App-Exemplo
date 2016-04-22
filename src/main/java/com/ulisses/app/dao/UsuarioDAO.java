@@ -6,9 +6,11 @@
 package com.ulisses.app.dao;
 
 import com.ulisses.app.entities.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -30,14 +32,15 @@ public class UsuarioDAO {
   public Usuario salvar(Usuario usuario) {
     if (usuario != null) {
       if (usuario.getSenhaConfirmacao() != null) {
-        if (!usuario.getSenhaConfirmacao().equals(usuario.getSenha()))
+        if (!usuario.getSenhaConfirmacao().equals(usuario.getSenha())) {
           throw new RuntimeException("As senhas não conferem!");
-        else if (usuario.getSenhaConfirmacao().length() < 10)
+        } else if (usuario.getSenhaConfirmacao().length() < 10) {
           throw new RuntimeException("A senha deve conter no mínimo 10 caracteres!");
-        else if (usuario.getSenhaConfirmacao().length() > 125)
+        } else if (usuario.getSenhaConfirmacao().length() > 125) {
           throw new RuntimeException("A senha deve conter no máximo 125 caracteres!");
-        else 
-          usuario.setSenha(DigestUtils.sha512Hex(usuario.getSenha()));          
+        } else {
+          usuario.setSenha(DigestUtils.sha512Hex(usuario.getSenha()));
+        }
       } else if (usuario.getId() != null) {
         usuario.setSenha(null);
         Usuario u = buscar(usuario.getId());
@@ -62,6 +65,19 @@ public class UsuarioDAO {
 
   public List<Usuario> buscar() {
     return em.createQuery("from Usuario", Usuario.class).getResultList();
+  }
+
+  public List<Usuario> buscarComSenha(String senha) {
+    if (senha == null) {
+      return new ArrayList<>();
+    }
+    senha = DigestUtils.sha512Hex(senha);
+    return em.createQuery("from Usuario where senha = :senha", Usuario.class).setParameter("senha", senha).getResultList();
+  }
+
+  public Long contar() {
+    TypedQuery<Long> qtd = em.createQuery("select count(u) from Usuario u", Long.class);
+    return qtd.getSingleResult();
   }
 
 }

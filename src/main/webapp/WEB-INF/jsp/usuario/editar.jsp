@@ -16,12 +16,8 @@
   <body>
     <%@include file="../../menu.jsp" %>
     <form action="<c:url value="/usuario/editar" />" enctype="application/x-www-form-urlencoded" method="post">
+      <h2>${empty usuario.id ? 'Inserindo' : 'Editando'} usuário</h2>
       <table>
-        <thead>
-          <tr>
-            <th colspan="2"><h3>${empty usuario.id ? 'Inserindo' : 'Editando'} usuario</h3></th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
             <td>Id</td>

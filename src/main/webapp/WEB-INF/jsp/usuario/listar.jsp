@@ -29,7 +29,7 @@
   </head>
   <body>
     <%@include file="../../menu.jsp" %>
-    <h1>Lista de usuários</h1>
+    <h2>Lista de usuários</h2>
     <table class="table">
       <thead>
         <tr>

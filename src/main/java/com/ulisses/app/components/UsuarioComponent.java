@@ -14,6 +14,7 @@ import com.ulisses.app.dao.UsuarioDAO;
 import com.ulisses.app.entities.Usuario;
 import java.util.List;
 import javax.inject.Inject;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class UsuarioComponent {
 
@@ -38,6 +39,19 @@ public class UsuarioComponent {
 
   public List<Usuario> buscar() {
     return usuarioDAO.buscar();
+  }
+
+  public Usuario buscar(String login, String senha) {
+    List<Usuario> usuarios = usuarioDAO.buscarComSenha(senha);
+    for (Usuario usuario : usuarios) {
+      if (usuario.getLogin().equalsIgnoreCase(login))
+        return usuario;
+    }
+    return null;
+  }
+  
+  public Long contar(){
+    return usuarioDAO.contar();
   }
 
 }

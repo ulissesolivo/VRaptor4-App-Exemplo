@@ -10,6 +10,7 @@
  */
 package com.ulisses.app.controllers;
 
+import br.com.caelum.brutauth.auth.annotations.Public;
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Result;
@@ -21,6 +22,7 @@ public class AppController {
   @Inject
   private Result r;
 
+  @Public
   @Get("/")
   public void index() {
     r.include("mensagem", "Bem vindo!");
