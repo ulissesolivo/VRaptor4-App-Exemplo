@@ -5,8 +5,9 @@
     E-mail     : ulissesolivo@gmail.com
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -14,6 +15,7 @@
     <title>VRaptor 4 App Exemplo</title>
   </head>
   <body>
+    <%@include file="../../menu.jsp" %>
     <h1>VRaptor 4 App Exemplo: ${mensagem}</h1>
   </body>
 </html>
