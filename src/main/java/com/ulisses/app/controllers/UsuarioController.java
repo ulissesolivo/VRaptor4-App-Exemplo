@@ -57,7 +57,9 @@ public class UsuarioController {
   @Public
   @Get("login")
   public void login(String mensagem) {
-    result.include("mensagem", mensagem == null ? "Área restrita, informe o nome de usuário e senha!" : mensagem);
+    if (usuarioComponent.contar() == 0)
+      mensagem = "O sistema não possui nenhum usuário cadastrado, o primeiro login será cadastrado!";
+    result.include("mensagem", mensagem);
   }
 
   @Public

@@ -15,11 +15,14 @@
   </head>
   <body>
     <form action="<c:url value="/usuario/logar" />" enctype="application/x-www-form-urlencoded" method="post">
-      <h2>${mensagem}</h2>
+      <h2>Área restrita, informe seu e-mail e senha</h2>
+      <c:if test="${not empty mensagem}">
+        <p>${mensagem}</p>
+      </c:if>
       <table>
         <tbody>
           <tr>
-            <td>Login</td>
+            <td>E-mail</td>
             <td><input type="email" name="usuario.login" style="width: 250px;" /></td>
           </tr>
           <tr>

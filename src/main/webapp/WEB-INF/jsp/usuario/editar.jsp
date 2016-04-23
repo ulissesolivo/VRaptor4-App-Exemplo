@@ -21,19 +21,19 @@
         <tbody>
           <tr>
             <td>Id</td>
-            <td><input type="number" name="usuario.id" value="${usuario.id}" readonly="readonly" /></td>
+            <td>${usuario.id}<input type="hidden" name="usuario.id" value="${usuario.id}" readonly="readonly" /></td>
           </tr>
           <tr>
-            <td>Login</td>
+            <td>E-mail de login</td>
             <td><input type="email" name="usuario.login" value="${usuario.login}" style="width: 250px;" /></td>
           </tr>
           <tr>
-            <td>Senha</td>
+            <td>Senha de acesso</td>
             <td><input type="password" name="usuario.senha" /></td>
           </tr>
           <tr>
-            <td>Senha confirmação</td>
-            <td><input type="password" name="usuario.senhaConfirmacao" /></td>
+            <td style="vertical-align: top;">Senha confirmação</td>
+            <td><input type="password" name="usuario.senhaConfirmacao" /><div>A senha deve conter no mínimo 10 caracteres</div></td>
           </tr>
         </tbody>
         <tfoot>
