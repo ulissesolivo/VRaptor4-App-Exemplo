@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
  /*
  *  Created on : 20/04/2016, 22:22:48
  *  Author     : Ulisses Olivo
@@ -19,11 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Min;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = {"login"}, name = "login_key"))
 public class Usuario implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -33,7 +28,7 @@ public class Usuario implements Serializable {
   @GeneratedValue(generator = "generator_id", strategy = GenerationType.SEQUENCE)
   private Long id;
 
-  @Column(length = 255, nullable = false, unique = true)
+  @Column(length = 255, nullable = false)
   @Length(min = 1, max = 255, message = "O login deve conter no máximo 255 caracteres!")
   private String login;
 
@@ -43,7 +38,7 @@ public class Usuario implements Serializable {
 
   @Transient
   private String senhaConfirmacao;
-
+  
   public Long getId() {
     return id;
   }

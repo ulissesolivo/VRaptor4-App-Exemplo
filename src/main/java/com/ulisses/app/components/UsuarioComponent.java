@@ -1,9 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
- /*
  *  Created on : 20/04/2016, 22:36:48
  *  Author     : Ulisses Olivo
  *  E-mail     : ulissesolivo@gmail.com
@@ -22,36 +17,60 @@ public class UsuarioComponent {
   private UsuarioDAO usuarioDAO;
 
   public Usuario buscar(Long id) {
-    return usuarioDAO.buscar(id);
+    return usuarioDAO.findOne(id);
   }
 
   public Usuario salvar(Usuario usuario) {
-    return usuarioDAO.salvar(usuario);
+    if (usuario != null) {
+      if (usuario.getSenhaConfirmacao() != null) {
+        if (!usuario.getSenhaConfirmacao().equals(usuario.getSenha())) {
+          throw new RuntimeException("As senhas não conferem!");
+        } else if (usuario.getSenhaConfirmacao().length() < 10) {
+          throw new RuntimeException("A senha deve conter no mínimo 10 caracteres!");
+        } else if (usuario.getSenhaConfirmacao().length() > 125) {
+          throw new RuntimeException("A senha deve conter no máximo 125 caracteres!");
+        } else {
+          usuario.setSenha(DigestUtils.sha512Hex(usuario.getSenha()));
+          usuario.setSenhaConfirmacao(null);
+        }
+      } else if (usuario.getId() != null) {
+        usuario.setSenha(null);
+        Usuario u = usuarioDAO.findOne(usuario.getId());
+        if (u != null) {
+          usuario.setSenha(u.getSenha());
+        }
+      } else {
+        usuario.setSenha(null);
+      }
+      usuario = usuarioDAO.save(usuario);
+    }
+    return usuario;
   }
 
   public boolean excluir(Long id) {
-    Usuario usuario = usuarioDAO.buscar(id);
+    Usuario usuario = usuarioDAO.findOne(id);
     if (usuario != null) {
-      return usuarioDAO.excluir(usuario);
+      return usuarioDAO.remove(usuario);
     }
     return false;
   }
 
-  public List<Usuario> buscar() {
-    return usuarioDAO.buscar();
+  public List<Usuario> buscarTodos() {
+    return usuarioDAO.findAll();
   }
 
   public Usuario buscar(String login, String senha) {
-    List<Usuario> usuarios = usuarioDAO.buscarComSenha(senha);
+    List<Usuario> usuarios = usuarioDAO.findBySenha(senha);
     for (Usuario usuario : usuarios) {
-      if (usuario.getLogin().equalsIgnoreCase(login))
+      if (usuario.getLogin().equalsIgnoreCase(login)) {
         return usuario;
+      }
     }
     return null;
   }
-  
-  public Long contar(){
-    return usuarioDAO.contar();
+
+  public Long contar() {
+    return usuarioDAO.count();
   }
 
 }

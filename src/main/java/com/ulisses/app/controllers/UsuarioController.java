@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
  /*
  *  Created on : 20/04/2016, 21:51:48
  *  Author     : Ulisses Olivo
@@ -34,7 +29,7 @@ public class UsuarioController {
 
   @Get("listar")
   public void listar() {
-    result.include("usuarios", usuarioComponent.buscar());
+    result.include("usuarios", usuarioComponent.buscarTodos());
   }
 
   @Get("editar")

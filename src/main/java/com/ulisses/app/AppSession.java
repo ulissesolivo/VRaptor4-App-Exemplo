@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ /*
+ *  Created on : 21/04/2016, 22:36:48
+ *  Author     : Ulisses Olivo
+ *  E-mail     : ulissesolivo@gmail.com
  */
 package com.ulisses.app;
 
