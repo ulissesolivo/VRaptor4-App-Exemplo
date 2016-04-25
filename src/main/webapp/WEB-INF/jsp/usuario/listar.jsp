@@ -30,6 +30,13 @@
   <body>
     <%@include file="../../menu.jsp" %>
     <h2>Lista de usuários</h2>
+    <c:if test="${not empty errors}">
+      <ul class="error-messages">
+        <c:forEach var="error" items="${errors}">
+          <li class="${error.category}">${error.message}</li>
+          </c:forEach>
+      </ul>
+    </c:if>
     <table class="table">
       <thead>
         <tr>

@@ -30,7 +30,7 @@ public class UsuarioInterceptor implements Interceptor {
   
   @Override
   public void intercept(InterceptorStack is, ControllerMethod cm, Object o) throws InterceptionException {
-    result.forwardTo(UsuarioController.class).login(null);
+    result.forwardTo(UsuarioController.class).login();
   }
 
   @Override

@@ -5,7 +5,7 @@
     E-mail     : ulissesolivo@gmail.com
 --%>
 
-<%@ page language="java" contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8" isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -15,8 +15,15 @@
   </head>
   <body>
     <%@include file="../../menu.jsp" %>
-    <form action="<c:url value="/usuario/editar" />" enctype="application/x-www-form-urlencoded" method="post">
+    <form action="<c:url value="/usuario/salvar" />" enctype="application/x-www-form-urlencoded" method="post">
       <h2>${empty usuario.id ? 'Inserindo' : 'Editando'} usuário</h2>
+      <c:if test="${not empty errors}">
+        <ul class="error-messages">
+          <c:forEach var="error" items="${errors}">
+            <li class="${error.category}">${error.message}</li>
+            </c:forEach>
+        </ul>
+      </c:if>
       <table>
         <tbody>
           <tr>

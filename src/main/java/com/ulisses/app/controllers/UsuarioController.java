@@ -1,4 +1,4 @@
- /*
+/*
  *  Created on : 20/04/2016, 21:51:48
  *  Author     : Ulisses Olivo
  *  E-mail     : ulissesolivo@gmail.com
@@ -11,7 +11,12 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.validator.Severity;
+import br.com.caelum.vraptor.validator.SimpleMessage;
+import br.com.caelum.vraptor.validator.Validator;
 import com.ulisses.app.AppSession;
+import com.ulisses.app.AppTry;
+import com.ulisses.app.AppTryIntf;
 import com.ulisses.app.components.UsuarioComponent;
 import com.ulisses.app.entities.Usuario;
 import javax.inject.Inject;
@@ -23,6 +28,8 @@ public class UsuarioController {
   @Inject
   private Result result;
   @Inject
+  private Validator validator;
+  @Inject
   private AppSession session;
   @Inject
   private UsuarioComponent usuarioComponent;
@@ -33,8 +40,8 @@ public class UsuarioController {
   }
 
   @Get("editar")
-  public void editar() {
-    result.include("usuario", new Usuario());
+  public void editar(Usuario usuario) {
+    result.include("usuario", usuario == null ? new Usuario() : usuario);
   }
 
   @Get("editar/{id}")
@@ -42,41 +49,48 @@ public class UsuarioController {
     result.include("usuario", usuarioComponent.buscar(id));
   }
 
-  @Post("editar")
-  public void editar(Usuario usuario) {
-    result.include("usuario", usuarioComponent.salvar(usuario));
+  @Post("salvar")
+  public void salvar(Usuario usuario) {
+    validator.validate(usuario);
+    validator.onErrorForwardTo(this).editar(usuario);
+    AppTry.exec(() -> usuarioComponent.salvar(usuario), validator);
+    validator.onErrorForwardTo(this).editar(usuario);
     result.forwardTo(this).listar();
   }
 
   @Get("excluir/{id}")
   public void excluir(Long id) {
-    usuarioComponent.excluir(id);
+    AppTry.exec(() -> usuarioComponent.excluir(id), validator);
     result.forwardTo(this).listar();
   }
 
   @Public
   @Get("login")
-  public void login(String mensagem) {
-    if (usuarioComponent.contar() == 0)
-      mensagem = "O sistema não possui nenhum usuário cadastrado, o primeiro login será cadastrado!";
-    result.include("mensagem", mensagem);
+  public void login() {
+    if (usuarioComponent.contar() == 0) {
+      validator.add(new SimpleMessage("login.novo",
+              "O sistema não possui nenhum usuário cadastrado, o primeiro login será cadastrado!",
+              Severity.WARN));
+    }
   }
 
   @Public
   @Post("logar")
   public void logar(Usuario usuario) {
-    session.setUsuario(usuarioComponent.buscar(usuario.getLogin(), usuario.getSenha()));
-    if (session.getUsuario() == null) {
-      if (usuarioComponent.contar() > 0) {
-        result.forwardTo(this).login("Login e/ou senha inválidos!");
-      } else {
-        usuario.setSenhaConfirmacao(usuario.getSenha());
-        session.setUsuario(usuarioComponent.salvar(usuario));
-        result.forwardTo(AppController.class).index();
+    AppTry.exec(() -> {
+      session.setUsuario(usuarioComponent.buscar(usuario.getLogin(), usuario.getSenha()));
+      if (session.getUsuario() == null) {
+        if (usuarioComponent.contar() > 0) {
+          validator.add(new SimpleMessage("login.invalido", "Login e/ou senha inválidos!", Severity.ERROR));
+        } else {
+          usuario.setSenhaConfirmacao(usuario.getSenha());
+          session.setUsuario(usuarioComponent.salvar(usuario));
+        }
       }
-    } else {
-      result.forwardTo(AppController.class).index();
-    }
+      return null;
+    }, validator);
+    validator.onErrorForwardTo(this).login();
+    result.forwardTo(AppController.class).index();
   }
 
   @Get("sair")

@@ -9,6 +9,7 @@ import com.ulisses.app.dao.UsuarioDAO;
 import com.ulisses.app.entities.Usuario;
 import java.util.List;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class UsuarioComponent {
@@ -42,7 +43,7 @@ public class UsuarioComponent {
       } else {
         usuario.setSenha(null);
       }
-      usuario = usuarioDAO.save(usuario);
+      usuario = usuarioDAO.saveAndFlush(usuario);
     }
     return usuario;
   }

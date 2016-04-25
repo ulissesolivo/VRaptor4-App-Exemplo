@@ -16,8 +16,12 @@
   <body>
     <form action="<c:url value="/usuario/logar" />" enctype="application/x-www-form-urlencoded" method="post">
       <h2>Área restrita, informe seu e-mail e senha</h2>
-      <c:if test="${not empty mensagem}">
-        <p>${mensagem}</p>
+      <c:if test="${not empty errors}">
+        <ul class="error-messages">
+          <c:forEach var="error" items="${errors}">
+            <li class="${error.category}">${error.message}</li>
+            </c:forEach>
+        </ul>
       </c:if>
       <table>
         <tbody>

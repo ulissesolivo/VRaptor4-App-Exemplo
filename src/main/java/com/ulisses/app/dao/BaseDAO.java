@@ -97,6 +97,7 @@ public abstract class BaseDAO<T> {
   public boolean remove(T entity) {
     if (entity != null) {
       em.remove(entity);
+      em.flush();
       return true;
     }
     return false;
