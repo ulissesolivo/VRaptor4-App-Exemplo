@@ -16,7 +16,6 @@ import br.com.caelum.vraptor.validator.SimpleMessage;
 import br.com.caelum.vraptor.validator.Validator;
 import com.ulisses.app.AppSession;
 import com.ulisses.app.AppTry;
-import com.ulisses.app.AppTryIntf;
 import com.ulisses.app.components.UsuarioComponent;
 import com.ulisses.app.entities.Usuario;
 import javax.inject.Inject;

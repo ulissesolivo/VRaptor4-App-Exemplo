@@ -7,7 +7,7 @@
 
   <groupId>com.ulisses</groupId>
   <artifactId>VRaptor4-App-Exemplo</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>war</packaging>
 
   <name>VRaptor 4 App Exemplo</name>
@@ -52,11 +52,6 @@
       <groupId>br.com.caelum.vraptor</groupId>
       <artifactId>vraptor-brutauth</artifactId>
       <version>4.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>br.com.caelum.vraptor</groupId>
-      <artifactId>vraptor-simple-validator</artifactId>
-      <version>4.1.0-RC3</version> <!--or the latest version-->
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
