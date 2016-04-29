@@ -43,7 +43,7 @@ public abstract class BaseDAO<T> {
     return em;
   }
 
-  protected CriteriaBuilder getCriteriaBuilder() {
+  public CriteriaBuilder getCriteriaBuilder() {
     return em.getCriteriaBuilder();
   }
 

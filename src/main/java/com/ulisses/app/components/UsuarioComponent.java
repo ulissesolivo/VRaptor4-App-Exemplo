@@ -9,7 +9,6 @@ import com.ulisses.app.dao.UsuarioDAO;
 import com.ulisses.app.entities.Usuario;
 import java.util.List;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class UsuarioComponent {
