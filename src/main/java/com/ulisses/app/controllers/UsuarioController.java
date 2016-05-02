@@ -60,6 +60,7 @@ public class UsuarioController {
   @Get("excluir/{id}")
   public void excluir(Long id) {
     AppTry.exec(() -> usuarioComponent.excluir(id), validator);
+    validator.onErrorForwardTo(this).listar();
     result.forwardTo(this).listar();
   }
 
@@ -69,8 +70,9 @@ public class UsuarioController {
     if (usuarioComponent.contar() == 0) {
       validator.add(new SimpleMessage("login.novo",
               "O sistema não possui nenhum usuário cadastrado, o primeiro login será cadastrado!",
-              Severity.WARN));
+              Severity.ERROR));
     }
+    validator.onErrorForwardTo(this);
   }
 
   @Public
