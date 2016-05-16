@@ -7,9 +7,14 @@ package com.ulisses.app.components;
 
 import com.ulisses.app.dao.UsuarioDAO;
 import com.ulisses.app.entities.Usuario;
+import com.ulisses.app.entities.Usuario_;
 import java.util.List;
 import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.apache.commons.codec.digest.DigestUtils;
+import com.ulisses.app.QueryBuilder;
 
 public class UsuarioComponent {
 
@@ -53,6 +58,17 @@ public class UsuarioComponent {
       return usuarioDAO.remove(usuario);
     }
     return false;
+  }
+  
+  public List<Usuario> buscar(String texto) {
+    QueryBuilder<Usuario> spec = new QueryBuilder<Usuario>() {
+      @Override
+      public CriteriaQuery builder(Root<Usuario> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+        query.where(builder.like(builder.lower(root.get(Usuario_.login)), ("%" + texto + "%").toLowerCase()));
+        return query;
+      }
+    };
+    return usuarioDAO.findAll(spec);
   }
 
   public List<Usuario> buscarTodos() {

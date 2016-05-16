@@ -5,6 +5,7 @@
  */
 package com.ulisses.app.dao;
 
+import com.ulisses.app.entities.Usuario;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -14,6 +15,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import com.ulisses.app.QueryBuilder;
 
 public abstract class BaseDAO<T> {
 
@@ -41,6 +44,10 @@ public abstract class BaseDAO<T> {
 
   protected EntityManager getEntityManager() {
     return em;
+  }
+  
+  protected CriteriaQuery<T> getCriteriaQuery() {
+    return getCriteriaBuilder().createQuery(type);
   }
 
   public CriteriaBuilder getCriteriaBuilder() {
@@ -118,6 +125,13 @@ public abstract class BaseDAO<T> {
   public Long count() {
     TypedQuery<Long> qtd = em.createQuery("select count(*) from " + type.getSimpleName(), Long.class);
     return qtd.getSingleResult();
+  }
+  
+  public List<T> findAll(QueryBuilder qb) {
+    CriteriaBuilder builder = getCriteriaBuilder();
+    CriteriaQuery<T> query = builder.createQuery(type);
+    Root<T> root = query.from(type);
+    return em.createQuery(qb.builder(root, query, builder)).getResultList();
   }
 
 }
