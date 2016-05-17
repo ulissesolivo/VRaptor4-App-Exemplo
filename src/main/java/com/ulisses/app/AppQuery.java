@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
  * @author uliss
  * @param <T>
  */
-public interface QueryBuilder<T> {
+public interface AppQuery<T> {
 
   CriteriaQuery<T> builder(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder);
 

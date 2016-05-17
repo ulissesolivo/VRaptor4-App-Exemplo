@@ -38,6 +38,16 @@ public class UsuarioController {
     result.include("usuarios", usuarioComponent.buscarTodos());
   }
 
+  @Post("listar")
+  public void listar(String texto) {
+    if (texto != null && !texto.isEmpty()) {
+      result.include("texto", texto);
+      result.include("usuarios", usuarioComponent.buscar(texto));
+    } else {
+      result.forwardTo(this).listar();
+    }
+  }
+
   @Get("editar")
   public void editar(Usuario usuario) {
     result.include("usuario", usuario == null ? new Usuario() : usuario);

@@ -16,7 +16,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import com.ulisses.app.QueryBuilder;
+import com.ulisses.app.AppQuery;
 
 public abstract class BaseDAO<T> {
 
@@ -127,11 +127,11 @@ public abstract class BaseDAO<T> {
     return qtd.getSingleResult();
   }
   
-  public List<T> findAll(QueryBuilder qb) {
+  public List<T> findAll(AppQuery appQuery) {
     CriteriaBuilder builder = getCriteriaBuilder();
     CriteriaQuery<T> query = builder.createQuery(type);
     Root<T> root = query.from(type);
-    return em.createQuery(qb.builder(root, query, builder)).getResultList();
+    return em.createQuery(appQuery.builder(root, query, builder)).getResultList();
   }
 
 }

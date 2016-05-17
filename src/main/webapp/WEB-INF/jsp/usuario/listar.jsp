@@ -37,6 +37,16 @@
           </c:forEach>
       </ul>
     </c:if>
+    <form action="<c:url value="/usuario/listar" />" method="post" enctype="application/x-www-form-urlencoded">
+      <table>
+        <tbody>
+          <tr>
+            <td><input type="text" name="texto" value="${texto}" /></td>
+            <td><button type="submit">Pesquisar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
     <table class="table">
       <thead>
         <tr>

@@ -14,7 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import org.apache.commons.codec.digest.DigestUtils;
-import com.ulisses.app.QueryBuilder;
+import com.ulisses.app.AppQuery;
 
 public class UsuarioComponent {
 
@@ -61,7 +61,7 @@ public class UsuarioComponent {
   }
   
   public List<Usuario> buscar(String texto) {
-    QueryBuilder<Usuario> spec = new QueryBuilder<Usuario>() {
+    AppQuery<Usuario> spec = new AppQuery<Usuario>() {
       @Override
       public CriteriaQuery builder(Root<Usuario> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         query.where(builder.like(builder.lower(root.get(Usuario_.login)), ("%" + texto + "%").toLowerCase()));
