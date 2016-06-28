@@ -18,100 +18,118 @@
   </properties>
     
   <dependencies>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.21</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.10</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.2</version>
-    </dependency>
+    <!-- VRaptor (Framework MVC) -->
     <dependency>
       <groupId>br.com.caelum</groupId>
       <artifactId>vraptor</artifactId>
-      <version>4.2.0-RC3</version>
+      <version>4.2.0-RC4</version>
     </dependency>
+    <!-- O plugin VRaptor JPA -->
     <dependency>
       <groupId>br.com.caelum.vraptor</groupId>
       <artifactId>vraptor-jpa</artifactId>
-      <version>4.0.4</version>
+      <version>4.0.5</version>
     </dependency>
+    <!-- Plugin de suporte para Java 8 -->
     <dependency>
       <groupId>br.com.caelum.vraptor</groupId>
       <artifactId>vraptor-java8</artifactId>
       <version>4.0.0.Final</version>
     </dependency>
-    <dependency>
-      <groupId>br.com.caelum.vraptor</groupId>
-      <artifactId>vraptor-brutauth</artifactId>
-      <version>4.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-validator-cdi</artifactId>
-      <version>5.2.4.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-entitymanager</artifactId>
-      <version>5.1.0.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>3.20.0-GA</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.inject</groupId>
-      <artifactId>javax.inject</artifactId>
-      <version>1</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld.servlet</groupId>
-      <artifactId>weld-servlet-core</artifactId>
-      <version>2.3.3.Final</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-core-impl</artifactId>
-      <version>2.3.3.Final</version>
-    </dependency>
+    <!-- Servlet API -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.2</version>
-      <scope>provided</scope>
-    </dependency>    
+    <!-- JSTL (JSP Standard Tag Library) -->        
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
+    <!-- CDI (Especificação) com implementação Weld -->    
+    <dependency>
+      <groupId>org.jboss.weld.servlet</groupId>
+      <artifactId>weld-servlet-core</artifactId>
+      <version>2.3.4.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-core-impl</artifactId>
+      <version>2.3.4.Final</version>
+    </dependency>
+    <!-- JPA (Especificação) com implementação Hibernate -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>5.1.0.Final</version>
+    </dependency>
+    <!-- Bean Validation (Especificação) com implementação Hibernate-Validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator-cdi</artifactId>
+      <version>5.2.4.Final</version>
+    </dependency>
+    <!-- Drive do postgres -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>9.4-1205-jdbc42</version>
     </dependency>
+    <!-- Javassist (JAVA programming ASSISTant) -->
+    <dependency>
+      <groupId>org.javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.20.0-GA</version>
+    </dependency>
+    <!-- Apache Commons Codec -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.10</version>
+    </dependency>
+    <!-- The Java Collections Framework -->
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.2</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.21</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <version>1</version>
+      <scope>compile</scope>
+    </dependency>
+
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-web-api</artifactId>
       <version>7.0</version>
       <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.2</version>
+      <scope>provided</scope>
+    </dependency>    
+    
+    <dependency>
+      <groupId>br.com.caelum.vraptor</groupId>
+      <artifactId>vraptor-brutauth</artifactId>
+      <version>4.0.4</version>
+    </dependency>
+    
   </dependencies>
 
   <build>
